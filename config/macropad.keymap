@@ -4,7 +4,7 @@
 
 / {
     macros {
-        // BT_CLR 호출을 위한 1인자 매크로
+        // BT_CLR 호출을 위한 1인자 매크로 (기존 검증된 매크로 유지)
         bt_clr_macro: bt_clr_macro {
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
@@ -13,17 +13,17 @@
     };
 
     behaviors {
-        // 노브 전용: 3초(3000ms) 홀드 -> 다음 레이어로 순환 전환 / 살짝 탭 -> 키 입력
+        // 노브 전용: 1.5초(1500ms) 홀드 -> 다음 레이어로 순환 전환 / 살짝 탭 -> 키 입력
         ht_to: hold_tap_to {
             compatible = "zmk,behavior-hold-tap";
             label = "HT_TO";
             #binding-cells = <2>;
             flavor = "hold-preferred";
-            tapping-term-ms = <3000>;
+            tapping-term-ms = <1500>;
             bindings = <&to>, <&kp>;
         };
 
-        // 6번 스위치 전용: 5초(5000ms) 홀드 -> 블루투스 초기화 / 살짝 탭 -> 숫자 6 입력
+        // 6번 스위치 전용: 5초(5000ms) 홀드 -> 블루투스 초기화 / 살짝 탭 -> F18 입력
         ht_bt: hold_tap_bt {
             compatible = "zmk,behavior-hold-tap";
             label = "HT_BT";
@@ -38,50 +38,50 @@
         compatible = "zmk,keymap";
 
         // ==========================================
-        // [레이어 1] (1번 LED 점등)
+        // [레이어 0] Mac 기본 미디어 모드 (LED 0 점등)
         // ==========================================
         layer_0 {
-            sensor-bindings = <&inc_dec_kp A B>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
             bindings = <
-                &kp N1            &kp N2          &kp N3
-                &kp N4            &kp N5          &ht_bt 0 N6
-                &ht_to 1 C
+                &kp F13           &kp F14         &kp F15
+                &kp F16           &kp F17         &ht_bt 0 F18
+                &ht_to 1 C_PP
             >;
         };
 
         // ==========================================
-        // [레이어 2] (2번 LED 점등)
+        // [레이어 1] Mac 포토샵 모드 (LED 1 점등)
         // ==========================================
         layer_1 {
-            sensor-bindings = <&inc_dec_kp D E>;
+            sensor-bindings = <&inc_dec_kp RBKT LBKT>;
             bindings = <
-                &kp N1            &kp N2          &kp N3
-                &kp N4            &kp N5          &ht_bt 0 N6
-                &ht_to 2 F
+                &kp F13           &kp F14         &kp F15
+                &kp F16           &kp F17         &ht_bt 0 F18
+                &ht_to 2 LG(Z)
             >;
         };
 
         // ==========================================
-        // [레이어 3] (3번 LED 점등)
+        // [레이어 2] Mac 일러스트레이터 모드 (LED 2 점등)
         // ==========================================
         layer_2 {
-            sensor-bindings = <&inc_dec_kp G H>;
+            sensor-bindings = <&inc_dec_kp LG(EQUAL) LG(MINUS)>;
             bindings = <
-                &kp N1            &kp N2          &kp N3
-                &kp N4            &kp N5          &ht_bt 0 N6
-                &ht_to 3 I
+                &kp F13           &kp F14         &kp F15
+                &kp F16           &kp F17         &ht_bt 0 F18
+                &ht_to 3 LG(Z)
             >;
         };
 
         // ==========================================
-        // [레이어 4] (4번 LED 점등)
+        // [레이어 3] Mac 프리미어 프로 모드 (LED 3 점등)
         // ==========================================
         layer_3 {
-            sensor-bindings = <&inc_dec_kp J K>;
+            sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
             bindings = <
-                &kp N1            &kp N2          &kp N3
-                &kp N4            &kp N5          &ht_bt 0 N6
-                &ht_to 0 L
+                &kp F13           &kp F14         &kp F15
+                &kp F16           &kp F17         &ht_bt 0 F18
+                &ht_to 0 SPACE
             >;
         };
     };
